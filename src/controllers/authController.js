@@ -18,9 +18,10 @@ const loginUser = async (email, password) => {
   if (!email || !password) throw new Error('Please provide email and password');
 
   const user = await User.findOne({ email }).select('+password ');
-  const isMatch = await user.correctPassword(password, user.password);
+  if (!user) throw new Error('User not found');
 
-  if (!user || !isMatch) throw new Error('Invalid credentials');
+  const isMatch = await user.correctPassword(password, user.password);
+  if (!isMatch) throw new Error('Invalid credentials');
 
   const token = signToken(user._id);
   console.log('Login successful. Your token:', token);
