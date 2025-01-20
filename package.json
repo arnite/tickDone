@@ -1,0 +1,22 @@
+{
+  "name": "tickdone",
+  "version": "1.0.0",
+  "description": "tickDone is an interactive command-line interface (CLI) application for managing tasks efficiently.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/index.js"
+  },
+  "author": "Arnold",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "chalk": "^5.4.1",
+    "dotenv": "^16.4.7",
+    "inquirer": "^12.3.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.9.5",
+    "validator": "^13.12.0",
+    "yargs": "^17.7.2"
+  }
+}
