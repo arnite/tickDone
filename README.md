@@ -14,7 +14,6 @@ tickDone is an interactive command-line interface (CLI) application for managing
   - Support for subtasks.
 - Advanced Features:
   - Filtering, sorting, and pagination for tasks.
-  - Notifications for tasks nearing their due date.
 - Role-Based Access Control (RBAC):
   - Separate actions for admin and regular users.
 - Command-line interaction using prompts.
@@ -25,7 +24,7 @@ tickDone is an interactive command-line interface (CLI) application for managing
 
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/arnite/tickDone.git
    cd tickDone
    ```
 2. Install dependencies:
@@ -33,10 +32,20 @@ tickDone is an interactive command-line interface (CLI) application for managing
    npm install
    ```
 3. Create a `.env` file in the root directory with the following variables:
+
    ```env
-   MONGO_URI=your_mongodb_connection_string
-   JWT_SECRET=your_secret_key
+   DATABASE= your_mongodb_connection_string
+   JWT_SECRET= your_secret_key
+   JWT_EXPIRES_IN= your expires day
+   JWT_COOKIE_EXPIRES_IN= your cookie expires day
+   SAname = super admin name
+   SAemail = super admin email
+   SApassword = super admin (password)
+   SApasswordConfirm = super admin (password confirm)
+   SArole = super Admin role
+
    ```
+
 4. Start the CLI tool:
    ```bash
    npm run start
@@ -85,9 +94,8 @@ To use the CLI tool globally, follow these steps:
 tickDone/
 ├── src/
 │   ├── controllers/   # Logic for handling users and tasks
-│   ├── db/            # MongoDB connection logic
+│   ├── config/            # MongoDB connection logic
 │   ├── models/        # Mongoose models
-│   ├── utils/         # Helper functions (e.g., JWT handling)
 │   └── index.js       # CLI entry point
 ├── .env               # Environment variables
 ├── package.json       # Project metadata and dependencies
@@ -122,17 +130,6 @@ tickDone/
 - `dotenv`: For environment variable management.
 - `inquirer`: For interactive CLI prompts.
 - `chalk`: For styled CLI output.
-
----
-
-## Roadmap
-
-- [x] User authentication (registration & login).
-- [x] Task management (CRUD operations).
-- [ ] Filtering, sorting, and pagination.
-- [ ] Subtask management.
-- [ ] Notifications for due tasks.
-- [ ] Deployment as a global npm package.
 
 ---
 
