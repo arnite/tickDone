@@ -1,6 +1,6 @@
 {
   "name": "tickdone",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "tickDone is an interactive command-line interface (CLI) application for managing tasks efficiently.",
   "main": "index.js",
   "bin": {
