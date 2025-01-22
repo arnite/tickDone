@@ -158,8 +158,58 @@ const startCLI = async () => {
               );
             }
           } else if (taskAction === 'View Tasks') {
+            const { filterStatus, filterPriority, sortBy, page } =
+              await inquirer.prompt([
+                {
+                  type: 'list',
+                  name: 'filterStatus',
+                  message: chalk.blue('Filter tasks by status:'),
+                  choices: ['All', 'Todo', 'In Progress', 'Done'],
+                },
+                {
+                  type: 'list',
+                  name: 'filterPriority',
+                  message: chalk.blue('Filter tasks by priority:'),
+                  choices: ['All', 'High', 'Medium', 'Low'],
+                },
+                {
+                  type: 'list',
+                  name: 'sortBy',
+                  message: chalk.blue('Sort tasks by:'),
+                  choices: ['Creation Date', 'Due Date', 'Priority'],
+                },
+                {
+                  type: 'input',
+                  name: 'page',
+                  message: chalk.blue('Enter page number (default is 1):'),
+                  default: 1,
+                },
+              ]);
+
+            const query = {
+              createdBy: user._id,
+              status:
+                filterStatus === 'All'
+                  ? { $ne: null }
+                  : filterStatus.toLowerCase(),
+              priority:
+                filterPriority === 'All'
+                  ? { $ne: null }
+                  : filterPriority.toLowerCase(),
+            };
+
             try {
-              const tasks = await Task.find({ createdBy: user._id });
+              const tasks = await Task.find(query)
+                .sort({
+                  [sortBy === 'Creation Date'
+                    ? 'createdAt'
+                    : sortBy === 'Due Date'
+                    ? 'dueDate'
+                    : 'priority']: 1,
+                })
+                .skip((page - 1) * 5) // Pagination logic (5 tasks per page)
+                .limit(5);
+
               if (tasks.length === 0) {
                 console.log(chalk.yellow('No tasks found.'));
               } else {
