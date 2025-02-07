@@ -23,6 +23,7 @@ const startApp = async () => {
 };
 
 const startCLI = async () => {
+  //loop
   try {
     while (true) {
       const { action } = await inquirer.prompt([
